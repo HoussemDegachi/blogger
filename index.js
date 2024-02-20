@@ -3,6 +3,7 @@ const ejsMate = require("ejs-mate");
 const path = require("path");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose")
+const blogRoutes = require("./routes/blogs")
 const app = express();
 
 // connect db
@@ -19,9 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride());
 
 // routers
-app.get("/", (req, res) => {
-  res.render("home");
-});
+app.use("/", blogRoutes)
 
 // run server
 app.listen(3000);

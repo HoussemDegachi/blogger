@@ -17,4 +17,15 @@ const blogSchema = new Schema({
 {
 }
 
+blogSchema.virtual("fmCreationDate").get(function () {
+  const creationDate = this.creationDate;
+  return (
+    creationDate.toLocaleString("default", { month: "long" }).slice(0, 3) +
+    " " +
+    creationDate.getDate() +
+    ", " +
+    creationDate.getFullYear()
+  );
+});
+
 module.exports = mongoose.model("Blog", blogSchema);
