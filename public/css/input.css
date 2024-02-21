@@ -24,11 +24,19 @@
     @apply text-sm border-b-[1px] border-b-gray-300 w-full min-h-11 px-4 py-4 bg-gradient-to-r hover:from-cyan-600 hover:to-cyan-500 hover:text-white duration-300;
   }
 
-  .page-title {
+  .section-title {
     @apply text-base text-black mb-3;
   }
 
   .card {
     @apply w-full bg-white mb-10 rounded;
+  }
+
+  .container {
+    @apply w-full max-w-[850px];
+  }
+
+  .content-container {
+    @apply pt-10 pb-5 px-5;
   }
 }

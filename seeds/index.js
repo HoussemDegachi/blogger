@@ -8,6 +8,7 @@ const seedBlogs = async () => {
     let i = 1
     await Blog.deleteMany({})
     for (let blog of blogsData) {
+        blog.image = "https://blogs.microsoft.com/wp-content/uploads/prod/2024/02/MC4S_1-960x540.jpg"
         const newBlog = new Blog(blog)
         await newBlog.save()
         console.log(`blog ${i} saved`)

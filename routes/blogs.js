@@ -11,4 +11,17 @@ router.get(
   })
 );
 
+router.get(
+  "/:id",
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const blog = await Blog.findById(id);
+    const featuredBlogs = await Blog.aggregate([
+      { $sample: { size: 6 } },
+      // { _id: { $nin: [ blog._id ] } },
+    ]);
+    res.render("blog", { blog, featuredBlogs });
+  })
+);
+
 module.exports = router;
