@@ -7,14 +7,12 @@
                 </h1>
                 <%- include("./partials/blogDescription", {blog}) %>
             </div>
-            <figure>
-                <img src="<%= blog.image %>" alt="">
-            </figure>
-            <div class="content-container">
-                <p>
-                    <%= blog.content %>
-                </p>
-            </div>
+            <%- include("./partials/imageComp", {url: blog.image}) %>
+                <div class="content-container">
+                    <p>
+                        <%= blog.content %>
+                    </p>
+                </div>
         </div>
         <div class="max-w-[30%] md:max-w-none w-full ml-10 md:ml-0">
             <p class="section-title">Featured</p>
@@ -22,12 +20,12 @@
                 <% for (let featured of featuredBlogs) { %>
                     <li class="card py-6 px-4">
                         <a class="text-cyan-600 border-b-2 border-cyan-600 pb-0 text-[14px] mb-5 block max-w-max"
-                            href="">
-                            <%= blog.author %>
+                            href="/authors/<%= featured.author._id %>">
+                            <%= featured.author.name %>
                         </a>
                         <a href="/<%= featured._id  %>" class="text-xl text-bold hover:border-b-2 hover:border-cyan-500 hover:text-cyan-500 
                         duration-300 w-max">
-                            <%= blog.title %>
+                            <%= featured.title %>
                         </a>
                     </li>
                     <% } %>

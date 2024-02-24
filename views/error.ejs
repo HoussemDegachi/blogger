@@ -1,0 +1,14 @@
+<%- layout("./layouts/boilerplate") %>
+
+    <div class="container flex flex-col items-center">
+        <p class="text-[80px] font-bold">
+            <%= err.status %>
+        </p>
+        <h1 class="text-3xl">
+            <%= err.title %>
+        </h1>
+        <p class="text-gray-600 mb-3">
+            <%= err.message %>
+        </p>
+        <a class="btn" href="/">Home page</a>
+    </div>

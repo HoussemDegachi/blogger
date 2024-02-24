@@ -29,7 +29,7 @@
   }
 
   .card {
-    @apply w-full bg-white mb-10 rounded;
+    @apply w-full bg-white mb-10 rounded shadow-md shadow-gray-200;
   }
 
   .container {

@@ -10,20 +10,26 @@
                 <a href="/">Home</a>
             </li>
             <li class="nav-anchor">
+                <a href="/authors">Authors</a>
+            </li>
+            <li class="nav-anchor">
                 <a href="/workshop">Workshop</a>
             </li>
         </ul>
     </div>
     <div class="flex items-center sm:hidden">
-        <button
-            class="nav-btn text-black bg-gradient-to-r from-white to-white border-2 border-cyan-600 mr-3 py-[2px]">Login</button>
-        <button class="nav-btn font-bold tracking-wide">Register</button>
+        <a
+            href="/login" class="nav-btn text-black bg-gradient-to-r from-white to-white border-2 border-cyan-600 mr-3 py-[2px]">Login</a>
+        <a href="/register" class="nav-btn font-bold tracking-wide">Register</a>
     </div>
     <button id="mobile-nav-btn" class="hidden sm:block justify-self-start text-xl"><i id="mobile-nav-btnIcon"
             class="fa-solid fa-bars"></i></button>
     <ul id="mobile-nav" class="absolute w-full h-max min-h-10 bg-gray-200 left-0 top-14 hidden">
         <li class="nav-mobile-anchor">
             <a href="/" class="nav-mobile-link">Home</a>
+        </li>
+        <li class="nav-mobile-anchor">
+            <a href="/authors" class="nav-mobile-link">Authors</a>
         </li>
         <li class="nav-mobile-anchor">
             <a href="/workshop" class="nav-mobile-link">Workshop</a>
