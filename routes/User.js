@@ -1,17 +1,12 @@
 const express = require("express")
 const catchAsync = require("../utils/catchAsync")
-const User = require("../models/User")
+const user = require("../controller/User")
 const router = express.Router()
 
-router.get("/", catchAsync(async (req, res) => {
-    const authors = await User.find({})
-    res.render("authors/index", {authors})
-}))
+router.route("/")
+    .get(catchAsync(user.index)) 
 
-router.get("/:id", catchAsync(async (req, res) => {
-    const { id } = req.params
-    const author = await User.findById(id).populate("blogs")
-    res.render("authors/author", { author })
-}))
+router.route("/:id")
+    .get(catchAsync(user.show))
 
 module.exports = router

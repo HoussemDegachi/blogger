@@ -11,8 +11,11 @@
 
 <body class="font-primary">
     <%- include("../partials/nav") %>
-        <main class="bg-gray-100 min-h-screen py-8 px-12 md:px-6 sm:px-3 flex justify-center">
-            <%- body %>
+        <main class="bg-gray-100 min-h-screen py-8 px-12 md:px-6 sm:px-3">
+            <%- include("../partials/alert") %>
+                <div class="flex justify-center">
+                    <%- body %>
+                </div>
         </main>
         <script src="https://kit.fontawesome.com/da49f06da0.js" crossorigin="anonymous"></script>
         <script src="/js/nav.js"></script>

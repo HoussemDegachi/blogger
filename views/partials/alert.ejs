@@ -1,0 +1,11 @@
+<% if (success && success.length) { %>
+    <div class="bg-green-500 bg-opacity-80 text-base w-full px-6 py-4 max-w-[850px] mb-5 mx-auto rounded">
+        <%= success %>
+    </div>
+    <% } %>
+
+        <% if (error && error.length) { %>
+            <div class="bg-red-500 bg-opacity-80 text-base w-full px-6 py-4 max-w-[850px] mb-5 mx-auto rounded">
+                <%= error %>
+            </div>
+            <% } %>

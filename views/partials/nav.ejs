@@ -1,4 +1,6 @@
 <nav class="w-full h-14 px-9 sm:px-3 py-2 flex box-border justify-between">
+    <button id="mobile-nav-btn" class="hidden sm:block justify-self-start text-xl"><i id="mobile-nav-btnIcon"
+            class="fa-solid fa-bars"></i></button>
     <div class="flex items-center content-between">
         <a href="/" class="flex items-center">
             <img src="../assets/logo.png" class="w-9 mr-2" alt="Blogger">
@@ -18,27 +20,58 @@
         </ul>
     </div>
     <div class="flex items-center sm:hidden">
-        <a
-            href="/login" class="nav-btn text-black bg-gradient-to-r from-white to-white border-2 border-cyan-600 mr-3 py-[2px]">Login</a>
-        <a href="/register" class="nav-btn font-bold tracking-wide">Register</a>
+        <% if (!currentUser) { %>
+            <a href="/login"
+                class="nav-btn text-black bg-gradient-to-r from-white to-white border-2 border-cyan-600 mr-3 py-[2px]">Login</a>
+            <a href="/register" class="nav-btn font-bold tracking-wide">Register</a>
+            <% } %>
     </div>
-    <button id="mobile-nav-btn" class="hidden sm:block justify-self-start text-xl"><i id="mobile-nav-btnIcon"
-            class="fa-solid fa-bars"></i></button>
-    <ul id="mobile-nav" class="absolute w-full h-max min-h-10 bg-gray-200 left-0 top-14 hidden">
-        <li class="nav-mobile-anchor">
-            <a href="/" class="nav-mobile-link">Home</a>
-        </li>
-        <li class="nav-mobile-anchor">
-            <a href="/authors" class="nav-mobile-link">Authors</a>
-        </li>
-        <li class="nav-mobile-anchor">
-            <a href="/workshop" class="nav-mobile-link">Workshop</a>
-        </li>
-        <li class="nav-mobile-anchor">
-            <a href="/signin" class="nav-mobile-link">Login</a>
-        </li>
-        <li class="nav-mobile-anchor">
-            <a href="/register" class="nav-mobile-link">Register</a>
-        </li>
-    </ul>
+    <% if (currentUser) { %>
+        <button id="userMenu-btn">
+            <figure class="w-10">
+                <img class="w-full h-full rounded-full"
+                    src="<%= currentUser.logo ? currentUser.logo : `/assets/avatar.jpg` %>"
+                    alt="<%= currentUser.name %>">
+            </figure>
+        </button>
+        <% } %>
+            <ul id="mobile-nav" class="absolute w-full h-max min-h-10 bg-gray-200 left-0 top-14 hidden z-50">
+                <li class="nav-mobile-anchor">
+                    <a href="/" class="nav-mobile-link">Home</a>
+                </li>
+                <li class="nav-mobile-anchor">
+                    <a href="/authors" class="nav-mobile-link">Authors</a>
+                </li>
+                <li class="nav-mobile-anchor">
+                    <a href="/workshop" class="nav-mobile-link">Workshop</a>
+                </li>
+                <% if (!currentUser) { %>
+                    <li class="nav-mobile-anchor">
+                        <a href="/signin" class="nav-mobile-link">Login</a>
+                    </li>
+                    <li class="nav-mobile-anchor">
+                        <a href="/register" class="nav-mobile-link">Register</a>
+                    </li>
+                    <% } %>
+            </ul>
+            <% if (currentUser) { %>
+                <ul class="absolute top-[70px] right-9 bg-gray-200 w-96 items-container rounded rounded-tr-none z-30 sm:w-full sm:top-14 sm:right-0 hidden"
+                    id="userMenu">
+                    <li class="nav-mobile-anchor">
+                        <a href="/authors/<%= currentUser._id %>"><i
+                                class="fa-solid fa-user mr-2 font-bold text-base"></i>Profile</a>
+                    </li>
+                    <li class="nav-mobile-anchor">
+                        <a href="/authors/<%= currentUser._id %>/settings"><i
+                                class="fa-solid fa-gear mr-2 font-bold text-base"></i>
+                            Account settings</a>
+                    </li>
+                    <li class="nav-mobile-anchor">
+                        <form action="/logout" method="POST">
+                            <button class="nav-mobile-link"><i
+                                    class="fa-solid fa-right-from-bracket mr-2 font-bold-text-base"></i>Logout</button>
+                        </form>
+                    </li>
+                </ul>
+                <% } %>
 </nav>

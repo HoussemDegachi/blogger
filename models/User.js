@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: String,
-  email: String,
+  name: {
+    type: String,
+    unique: true,
+  },
   job: String,
   description: String,
   logo: String,
@@ -18,6 +21,15 @@ const userSchema = new Schema({
   //         blogs: [{type: Schema.Types.ObjectId, ref: "Blog"}],
   //     },
   // ]
+});
+
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: "email",
+  usernameCaseInsensitive: true,
+});
+
+userSchema.virtual("blogsLength").get(function () {
+  return this.blogs.length;
 });
 
 module.exports = mongoose.model("User", userSchema);
