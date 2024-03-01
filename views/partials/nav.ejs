@@ -30,7 +30,7 @@
         <button id="userMenu-btn">
             <figure class="w-10">
                 <img class="w-full h-full rounded-full"
-                    src="<%= currentUser.logo ? currentUser.logo : `/assets/avatar.jpg` %>"
+                    src="<%= currentUser.logo ? currentUser.logo.fmurl : `/assets/avatar.jpg` %>"
                     alt="<%= currentUser.name %>">
             </figure>
         </button>

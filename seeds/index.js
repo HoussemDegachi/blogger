@@ -17,6 +17,10 @@ const seedUsers = async () => {
     for (let userData of usersData) {
         const user = new User(userData)
         user.description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo sunt neque officiis alias? Magnam iste sed aut cum atque nostrum dolor iure placeat, at aliquid laudantium, veniam, corporis id corrupti dolores laborum repellat quo. Aliquid vitae fugiat fuga vel? Officiis."
+        user.logo = {
+            url: "https://res.cloudinary.com/dqu4adqkj/image/upload/v1709225847/blogger/t1qaw53wdbolmcvqqxt0.jpg",
+            filename: "blogger/t1qaw53wdbolmcvqqxt0"
+        }
         ids.push(user._id)
         await user.save()
         console.log(`User ${i} saved`)

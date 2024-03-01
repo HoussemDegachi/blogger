@@ -64,7 +64,7 @@ passport.deserializeUser(User.deserializeUser());
 // middleware
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride());
+app.use(methodOverride("_method"));
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -93,7 +93,9 @@ app.use((err, req, res, next) => {
     err.message =
       "We appologize for the inconvenience, please try again later.";
   if (!err.status) err.status = 500;
-  console.log(err.stack);
+  if (process.env.NODE_ENV !== "production") {
+    console.log(err.stack);
+  }
   res.render("error", { err });
   next();
 });

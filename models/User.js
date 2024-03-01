@@ -9,7 +9,10 @@ const userSchema = new Schema({
   },
   job: String,
   description: String,
-  logo: String,
+  logo: {
+    filename: String,
+    url: String
+  },
   blogs: [{ type: Schema.Types.ObjectId, ref: "Blog" }],
   // stars: Number,
   // likedPosts: [{type: Schema.Types.ObjectId, ref: "Blog"}],
@@ -31,5 +34,9 @@ userSchema.plugin(passportLocalMongoose, {
 userSchema.virtual("blogsLength").get(function () {
   return this.blogs.length;
 });
+
+userSchema.virtual("logo.fmurl").get(function () {
+  return this.logo.url.replace("/upload", "/upload/w_100,h_100,c_fill")
+})
 
 module.exports = mongoose.model("User", userSchema);

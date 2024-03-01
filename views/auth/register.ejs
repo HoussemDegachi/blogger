@@ -7,7 +7,8 @@
                 <figure class="w-1/2 md:w-full md:flex md:justify-center">
                     <img src="/assets/auth.svg" class="md:max-h-[350px]" alt="login">
                 </figure>
-                <form class="mt-9 w-1/2 ml-2 md:w-full form-validate" action="/register" method="POST" novalidate>
+                <form class="mt-9 w-1/2 ml-2 md:w-full form-validate" action="/register" method="POST"
+                    enctype="multipart/form-data" novalidate>
                     <div class="mb-6 w-full">
                         <label for="name">Name:</label>
                         <input required
@@ -23,6 +24,12 @@
                             type="email" name="email" id="email">
                         <span class="error-message w-full bg-red-500 bg-opacity-60 rounded-b px-3 py-1 hidden"
                             aria-live="polite"></span>
+                        </div>
+                        <div class="mb-6 w-full">
+                            <label for="avatar">Avatar:</label>
+                            <input class="block w-full mt-2" type="file" name="avatar" id="avatar">
+                            <span class="error-message w-full bg-red-500 bg-opacity-60 rounded-b px-3 py-1 hidden"
+                                aria-live="polite"></span>
                     </div>
                     <div class="mb-6 w-full">
                         <label for="job">Job:</label>

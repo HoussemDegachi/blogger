@@ -1,13 +1,17 @@
 const express = require("express");
 const passport = require("passport");
-const { validateUser } = require("../middlewares/auth");
-const Auth = require("../controller/Auth")
+const { validateUser, saveReturnTo } = require("../middlewares/auth");
+const Auth = require("../controller/Auth");
+const multer = require("multer");
+const { storage } = require("../cloudinary/index");
+const upload = multer({ storage });
 const router = express.Router();
 
 router
   .route("/login")
   .get(Auth.showLogin)
   .post(
+    saveReturnTo,
     passport.authenticate("local", {
       failureFlash: true,
       failureRedirect: "/login",
@@ -18,10 +22,7 @@ router
 router
   .route("/register")
   .get(Auth.showRegister)
-  .post(
-    validateUser,
-    Auth.register
-  );
+  .post(upload.single("avatar"), validateUser, Auth.register);
 
 router.route("/logout").post(Auth.logout);
 

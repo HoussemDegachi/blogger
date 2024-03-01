@@ -1,0 +1,41 @@
+<%- layout("./layouts/boilerplate") %>
+
+    <div class="container">
+        <h1 class="section-title">Edit</h1>
+        <form class="mt-9 w-1/2 ml-2 md:w-full form-validate" action="/authors/<%= user._id %>?_method=PUT"
+            method="POST" novalidate>
+            <div class="mb-6 w-full">
+                <label for="name">Name:</label>
+                <input required
+                    class="block outline-none border-b-2 border-cyan-400 focus:border-cyan-600 duration-300 w-full"
+                    type="text" name="name" id="name" minLength="2" value="<%= user.name %>">
+                <span class="error-message w-full bg-red-500 bg-opacity-60 rounded-b px-3 py-1 hidden"
+                    aria-live="polite"></span>
+            </div>
+            <div class="mb-6 w-full">
+                <label for="job">Job:</label>
+                <input required
+                    class="block outline-none border-b-2 border-cyan-400 focus:border-cyan-600 duration-300 w-full"
+                    type="text" name="job" id="job" minLength="3" value="<%= user.job %>">
+                <span class="error-message w-full bg-red-500 bg-opacity-60 rounded-b px-3 py-1 hidden"
+                    aria-live="polite"></span>
+            </div>
+            <div class="mb-6 w-full">
+                <label for="description">Description:</label>
+                <textarea
+                    class="block outline-none border-b-2 border-cyan-400 focus:border-cyan-600 duration-300 w-full"
+                    type="text" name="description" id="description"><%= user.description %></textarea>
+            </div>
+            <button class="btn w-full">Save</button>
+        </form>
+        <div class="pl-2 mt-4">
+            <a href="/authors/<%= user._id %>" class="btn">Profile</a>
+            <a href="/workshop" class="btn">Edit blogs</a>
+        </div>
+        <div class="pl-2 mt-4">
+            <form action="/authors/<%= user._id %>?_method=DELETE" method="POST">
+                <button class="btn bg-none bg-red-600 mr-2">Delete account</button>
+            </form>
+        </div>
+    </div>
+    <script src="/js/formValidate.js"></script>

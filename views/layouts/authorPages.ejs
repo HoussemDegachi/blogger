@@ -4,7 +4,7 @@
         <div class="border-b-2 border-gray-300">
             <div class="flex items-center md:flex-col md:text-center w-full mb-11">
                 <figure class="w-40 h-40 md:mr-0 md:mb-4 mr-6">
-                    <img class="w-full h-full rounded-[50%]" src="<%= author.logo ? author.logo : "/assets/avatar.jpg" %>" alt="<%= author.name %>"
+                    <img class="w-full h-full rounded-[50%]" src="<%= author.logo ? author.logo.fmurl : "/assets/avatar.jpg" %>" alt="<%= author.name %>"
                         loading="lazy">
                 </figure>
                 <div class="md:flex md:items-center md:flex-col">
@@ -21,9 +21,15 @@
                         <%= author.description.substring(0, 30) + "..." %>
                             <i class="fa-solid fa-angle-right text-gray-900 font-bold text-2xl ml-3"></i>
                     </button>
+                    <% if (currentUser && currentUser._id.equals(author._id)) { %>
+                        <a href="/authors/<%= author._id %>/settings" class="btn block w-max mt-2">
+                            <i class="fa-solid fa-gear"></i>
+                        </a>
+                    <% } else { %>
                     <a href="/authors/<%= author._id %>/like" class="btn block w-max mt-2">
                         <i class="fa-regular fa-star"></i>
                     </a>
+                    <% } %>
                 </div>
             </div>
             <div>
