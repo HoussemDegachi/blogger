@@ -32,10 +32,12 @@ const seedUsers = async () => {
 const seedBlogs = async (uids) => {
     let i = 1
     await Blog.deleteMany({})
+    const blogIds = []
     for (let blog of blogsData) {
         const targetId = uids[randint(0, uids.length)]
         blog.image = "https://blogs.microsoft.com/wp-content/uploads/prod/2024/02/MC4S_1-960x540.jpg"
         const newBlog = new Blog(blog)
+        blogIds.push(newBlog._id)
         newBlog.author = targetId
         await newBlog.save()
         const targetUser = await User.findById(targetId)
@@ -44,12 +46,34 @@ const seedBlogs = async (uids) => {
         console.log(`blog ${i} saved`)
         i++
     }
+    return blogIds
+}
+
+const addCollections = async (uids, blogIds) => {
+    for (let uid of uids) {
+        const collectionCount = randint(0, 5)
+        const user = await User.findById(uid)
+        for (let i = 0; i < collectionCount; i++) {
+            console.log(`Creating collection ${i} for ${uid}`)
+            const blogs = []
+            for (let j = 0; j < 3; j++) {
+                blogs.push(blogIds[randint(0, blogIds.length)])
+            }
+            user.collections.push({
+                name: `collection ${i}`,
+                isPrivate: true,
+                blogs
+            })
+        }
+        await user.save()
+    }
 }
 
 
 const seedDb = async () => {
     const uids = await seedUsers()
-    await seedBlogs(uids)
+    const blogIds = await seedBlogs(uids)
+    await addCollections(uids, blogIds)
 }
 
 seedDb().then(() => {

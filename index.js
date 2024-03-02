@@ -69,6 +69,9 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currentUser = req.user;
+  const paths = req.path.split("/")
+  const lastPath = paths[paths.length - 1]
+  res.locals.lastPath = lastPath
   next();
 });
 
@@ -94,6 +97,7 @@ app.use((err, req, res, next) => {
       "We appologize for the inconvenience, please try again later.";
   if (!err.status) err.status = 500;
   if (process.env.NODE_ENV !== "production") {
+    console.log("error at", req.originalUrl);
     console.log(err.stack);
   }
   res.render("error", { err });

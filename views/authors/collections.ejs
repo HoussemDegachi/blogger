@@ -1,0 +1,59 @@
+<%- layout("./layouts/authorPages") %>
+    <% if (currentUser && currentUser._id.equals(author._id)) { %>
+        <button class="btn mt-6" id="collectionModalOpenBtn"><i class="fa-regular fa-plus"></i></button>
+        <% } %>
+            <ul class="py-9 grid grid-cols-2 gap-x-7 gap-y-12 md:grid-cols-none">
+                <% for (let collection of author.collections) { %>
+                    <li>
+                        <a href="/authors/<%= author._id %>/collections/<%= collection._id %>">
+                            <figure class="relative bg-neutral-400 bg-opacity-70">
+                                <img src="<%= collection.blogs.length && collection.blogs[0].image ? collection.blogs[0].image : 
+                        " https://t3.ftcdn.net/jpg/02/68/55/60/240_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg"
+                                    %>"
+                                class="h-full" alt="">
+                                <div class="absolute right-4 bottom-3 bg-cyan-400 bg-opacity-30 rounded p-[3px]"><i
+                                        class="fa-solid fa-bars-staggered"></i>
+                                    <p class="inline-block ml-1">
+                                        <%= collection.blogs.length %> blog<%= collection.blogs.length !==1 && "s" %>
+                                    </p>
+                                </div>
+                            </figure>
+                            <p class="bg-white items-container">
+                                <%= collection.name %>
+                            </p>
+                        </a>
+                    </li>
+                    <% } %>
+            </ul>
+            <% if (currentUser && currentUser._id.equals(author._id)) { %>
+                <div id="collectionModal"
+                    class="hidden bg-gray-500 bg-opacity-50 w-full h-full fixed top-0 left-0 collectionModalCloseBtn items-center justify-center duration-300">
+                    <div class="py-4 px-6 card w-full h-full max-w-[390px] max-h-[460px] overflow-y-auto absolute"
+                        id="collectionModal-content">
+                        <p class="section-title">
+                            Create new collection
+                        </p>
+                        <form action="/authors/<%= currentUser._id %>/collections" class="form-validate" method="POST"
+                            novalidate>
+                            <label for="name">Name:</label>
+                            <div class="mb-5">
+                                <input type="text" name="name" id="name"
+                                    class="block outline-none border-b-2 border-cyan-400 focus:border-cyan-600 duration-300 w-full"
+                                    required autocomplete="off">
+                                <span class="error-message w-full bg-red-500 bg-opacity-60 rounded-b px-3 py-1 hidden"
+                                    aria-live="polite"></span>
+                            </div>
+                            <div class="mb-5">
+                                <label for="private" class="mr-2">Private</label>
+                                <input type="checkbox" name="isPrivate" id="private">
+                            </div>
+                            <button class="btn block">Create</button>
+                        </form>
+                        <button
+                            class="collectionModalCloseBtn bg-transparent p-0 m-0 absolute top-3 right-4 text-3xl"><i
+                                class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+                <% } %>
+                    <script src="/js/collectionModal.js"></script>
+                    <script src="/js/formValidate.js"></script>

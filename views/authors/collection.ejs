@@ -1,0 +1,36 @@
+<% layout("./layouts/boilerplate") %>
+    <div class="w-full max-w-[1000px] flex justify-center md:items-center md:flex-col">
+        <div
+            class="max-w-96 w-full md:max-w-none mr-10 md:mr-0 md:mb-16 bg-gray-300 bg-opacity-70 content-container md:flex rounded">
+            <figure class="bg-neutral-400 bg-opacity-80 md:max-w-[50%] md:w-full md:mr-4">
+                <img class="rounded w-full h-full" src="<%= collection.blogs.length && collection.blogs[0].image ? 
+                    collection.blogs[0].image : 
+                    " https://t3.ftcdn.net/jpg/02/68/55/60/240_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg" %>">
+            </figure>
+            <div class="items-container">
+                <h1 class="font-bold text-xl">
+                    <%= collection.name %>
+                </h1>
+                <a href="/authors/<%= user._id %>" class="mb-3">
+                    <%= user.name %>
+                </a>
+                <p><i class="fa-regular fa-image mr-[2px]"></i>
+                    <%= collection.blogs.length %>
+                </p>
+            </div>
+        </div>
+        <ul class="w-full">
+            <% for (let blog of collection.blogs) { %>
+                <li class="card py-6 px-4">
+                    <a class="text-cyan-600 border-b-2 border-cyan-600 pb-0 text-[14px] mb-5 block max-w-max"
+                        href="/authors/<%= blog.author._id %>">
+                        <%= blog.author.name %>
+                    </a>
+                    <a href="/<%= blog._id  %>" class="text-xl text-bold hover:border-b-2 hover:border-cyan-500 hover:text-cyan-500 
+                    duration-300 w-max">
+                        <%= blog.title %>
+                    </a>
+                </li>
+                <% } %>
+        </ul>
+    </div>

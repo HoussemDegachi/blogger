@@ -17,13 +17,13 @@ const userSchema = new Schema({
   // stars: Number,
   // likedPosts: [{type: Schema.Types.ObjectId, ref: "Blog"}],
   // staredAuthors: [{type: Schema.Types.ObjectId, ref: "User"}],
-  // collections: [
-  //     {
-  //         name: String,
-  //         isPrivate: Boolean,
-  //         blogs: [{type: Schema.Types.ObjectId, ref: "Blog"}],
-  //     },
-  // ]
+  collections: [
+      {
+          name: String,
+          isPrivate: Boolean,
+          blogs: [{type: Schema.Types.ObjectId, ref: "Blog"}],
+      },
+  ]
 });
 
 userSchema.plugin(passportLocalMongoose, {
