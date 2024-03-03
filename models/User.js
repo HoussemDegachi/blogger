@@ -15,7 +15,7 @@ const userSchema = new Schema({
   },
   blogs: [{ type: Schema.Types.ObjectId, ref: "Blog" }],
   // stars: Number,
-  // likedPosts: [{type: Schema.Types.ObjectId, ref: "Blog"}],
+  likedPosts: [{type: Schema.Types.ObjectId, ref: "Blog"}],
   // staredAuthors: [{type: Schema.Types.ObjectId, ref: "User"}],
   collections: [
       {

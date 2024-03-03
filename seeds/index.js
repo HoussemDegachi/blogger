@@ -3,8 +3,11 @@ const blogsData = require("./blogsData")
 const usersData = require("./usersData")
 const Blog = require("../models/Blog")
 const User = require("../models/User")
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+  }
 
-mongoose.connect("mongodb://127.0.0.1:27017/blogger")
+mongoose.connect(process.env.DB_URL)
 
 const randint = (s, f) => {
     return Math.floor(Math.random() * f) + s
@@ -61,7 +64,7 @@ const addCollections = async (uids, blogIds) => {
             }
             user.collections.push({
                 name: `collection ${i}`,
-                isPrivate: true,
+                isPrivate: randint(0, 1),
                 blogs
             })
         }

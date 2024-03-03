@@ -7,7 +7,7 @@
                 </h1>
                 <%- include("./partials/blogDescription", {blog}) %>
             </div>
-            <%- include("./partials/imageComp", {url: blog.image}) %>
+            <%- include("./partials/imageComp", {url: blog.image, id: blog._id, likes: blog.likes, linkImage: false}) %>
                 <div class="content-container">
                     <p>
                         <%= blog.content %>
@@ -32,3 +32,4 @@
             </ul>
         </div>
     </div>
+    <script src="/js/collectionOpenModal.js"></script>

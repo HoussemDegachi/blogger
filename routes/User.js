@@ -23,5 +23,8 @@ router.route("/:id/collections")
 
 router.route("/:id/collections/:collectionId")
   .get(catchAsync(user.showCollection))
+  .post(isLogedin, isUserAuthorized, catchAsync(user.saveToCollection))
+  .delete(isLogedin, isUserAuthorized, catchAsync(user.deleteCollection))
+  .patch(isLogedin, isUserAuthorized, catchAsync(user.editCollection))
 
 module.exports = router;

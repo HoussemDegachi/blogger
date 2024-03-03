@@ -4,8 +4,7 @@
         <div class="border-b-2 border-gray-300">
             <div class="flex items-center md:flex-col md:text-center w-full mb-11">
                 <figure class="w-40 h-40 md:mr-0 md:mb-4 mr-6">
-                    <img class="w-full h-full rounded-[50%]" 
-                    src="<%= author.logo ? author.logo.fmurl : "/assets/avatar.jpg" %>" alt="<%= author.name %>" loading="lazy">
+                    <img class="w-full h-full rounded-[50%]" src="<%= author.logo ? author.logo.fmurl : "/assets/avatar.jpg" %>" alt="<%= author.name %>" loading="lazy">
                 </figure>
                 <div class="md:flex md:items-center md:flex-col">
                     <h1 class="font-bold text-[30px] sm:text-3xl">
@@ -25,7 +24,7 @@
                         <a href="/authors/<%= author._id %>/settings" class="btn block w-max mt-2">
                             <i class="fa-solid fa-gear"></i>
                         </a>
-                        <% } else { %>
+                        <% } else if (currentUser) { %>
                             <a href="/authors/<%= author._id %>/like" class="btn block w-max mt-2">
                                 <i class="fa-regular fa-star"></i>
                             </a>
@@ -33,13 +32,13 @@
                 </div>
             </div>
             <div>
-                <a href="/authors/<%= author._id %>" class="text-base <%= lastPath !== "collections" && lastPath
+                <a href="/authors/<%= author._id %>" class="text-base <%= lastPath !== " collections" && lastPath
                     !=="favourites" ? `text-black border-b-black border-b-2` : `text-gray-500 hover:border-b-gray-500
                     hover:border-b-2` %> font-bold pb-1 mr-5">Home</a>
-                <a href="/authors/<%= author._id %>/collections" class="text-base <%= lastPath === "collections"?
+                <a href="/authors/<%= author._id %>/collections" class="text-base <%= lastPath === " collections"?
                     `text-black border-b-black border-b-2` : `text-gray-500 hover:border-b-gray-500 hover:border-b-2` %>
                     font-bold pb-1 mr-5">Collections</a>
-                <a href="/authors/<%= author._id %>/favourites" class="text-base <%= lastPath === "favourites"?
+                <a href="/authors/<%= author._id %>/favourites" class="text-base <%= lastPath === " favourites"?
                     `text-black border-b-black border-b-2` : `text-gray-500 hover:border-b-gray-500 hover:border-b-2` %>
                     font-bold pb-1 mr-5">Favourites</a>
             </div>

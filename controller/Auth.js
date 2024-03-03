@@ -19,6 +19,7 @@ module.exports.register = async (req, res) => {
       url: req.file.path,
       filename: req.file.filename
     }
+    
     const registerdUser = await User.register(u, password);
     req.login(registerdUser, (err) => {
       if (err) return next(err);

@@ -11,11 +11,21 @@
                         " https://t3.ftcdn.net/jpg/02/68/55/60/240_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg"
                                     %>"
                                 class="h-full" alt="">
-                                <div class="absolute right-4 bottom-3 bg-cyan-400 bg-opacity-30 rounded p-[3px]"><i
-                                        class="fa-solid fa-bars-staggered"></i>
-                                    <p class="inline-block ml-1">
-                                        <%= collection.blogs.length %> blog<%= collection.blogs.length !==1 && "s" %>
+                                <div class="absolute right-4 bottom-3">
+                                    <p class="inline-block ml-1 bg-cyan-400 bg-opacity-30 rounded p-[3px]">
+                                        <i class="fa-solid fa-bars-staggered"></i>
+                                        <%= collection.blogs.length %> blog<%= collection.blogs.length !==1 ? "s" : ""
+                                                %>
                                     </p>
+                                    <% if (currentUser && currentUser._id.equals(author._id)) { %>
+                                        <p class="inline-block ml-1 bg-cyan-400 bg-opacity-30 rounded p-[3px] px-[5px]">
+                                            <% if (collection.isPrivate) { %>
+                                                <i class="fa-solid fa-lock"></i>
+                                                <% } else { %>
+                                                    <i class="fa-solid fa-lock-open"></i>
+                                                    <% } }%>
+
+                                        </p>
                                 </div>
                             </figure>
                             <p class="bg-white items-container">

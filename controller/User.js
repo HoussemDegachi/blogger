@@ -32,6 +32,9 @@ module.exports.delete = async (req, res, next) => {
   for (let blog of user.blogs) {
     await blog.deleteOne();
   }
+  for (let collection of user.collections) {
+    await collection.deleteOne();
+  }
   await user.deleteOne();
   next();
 };
@@ -79,7 +82,59 @@ module.exports.createCollection = async (req, res) => {
     name,
     isPrivate,
   });
-  console.log(isPrivate);
   await user.save();
   res.redirect(`/authors/${id}/collections`);
+};
+
+module.exports.saveToCollection = async (req, res) => {
+  const { collectionId, id } = req.params;
+  const { blogId } = req.query;
+  const user = await User.findById(id).populate("collections");
+  const targetCollection = user.collections.find((collection) =>
+    collection._id.equals(collectionId)
+  );
+  let isSaved = false;
+  let i = 0;
+  for (let blog of targetCollection.blogs) {
+    if (blog.equals(blogId)) {
+      isSaved = true;
+      break;
+    }
+    i++;
+  }
+  if (isSaved) {
+    targetCollection.blogs.splice(i, 1);
+  } else {
+    targetCollection.blogs.push(blogId);
+  }
+  await user.save();
+  res.redirect("/");
+};
+
+module.exports.deleteCollection = async (req, res) => {
+  const { id, collectionId } = req.params;
+  const user = await User.findById(id).populate("collections");
+  const newCollections = user.collections.filter(
+    (collection) => !collection._id.equals(collectionId)
+  );
+  user.collections = newCollections;
+  await user.save();
+  res.redirect(`/authors/${id}`);
+};
+
+module.exports.editCollection = async (req, res) => {
+  const { id, collectionId } = req.params;
+  const { name, isPrivate } = req.body;
+  const user = await User.findById(id).populate("collections");
+  const targetCollection = user.collections.find((collection) =>
+    collection._id.equals(collectionId)
+  );
+  targetCollection.name = name;
+  if (isPrivate === "on") {
+    targetCollection.isPrivate = true;
+  } else {
+    targetCollection.isPrivate = false;
+  }
+  await user.save();
+  res.redirect(`/authors/${id}/collections/${collectionId}`);
 };

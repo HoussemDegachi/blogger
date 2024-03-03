@@ -1,8 +1,8 @@
 <% layout("./layouts/boilerplate") %>
     <div class="w-full max-w-[1000px] flex justify-center md:items-center md:flex-col">
         <div
-            class="max-w-96 w-full md:max-w-none mr-10 md:mr-0 md:mb-16 bg-gray-300 bg-opacity-70 content-container md:flex rounded">
-            <figure class="bg-neutral-400 bg-opacity-80 md:max-w-[50%] md:w-full md:mr-4">
+            class="max-w-96 w-full md:max-w-none mr-10 md:mr-0 md:mb-16 bg-gray-300 bg-opacity-70 content-container md:flex sm:flex-col rounded">
+            <figure class="bg-neutral-400 bg-opacity-80 md:max-w-[50%] md:w-full md:mr-4 sm:max-w-none">
                 <img class="rounded w-full h-full" src="<%= collection.blogs.length && collection.blogs[0].image ? 
                     collection.blogs[0].image : 
                     " https://t3.ftcdn.net/jpg/02/68/55/60/240_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg" %>">
@@ -17,11 +17,31 @@
                 <p><i class="fa-regular fa-image mr-[2px]"></i>
                     <%= collection.blogs.length %>
                 </p>
+                <p>
+                    <% if (currentUser && currentUser._id.equals(user._id)) { %>
+                        <% if (collection.isPrivate) { %>
+                            <i class="fa-solid fa-lock"></i> Private
+                            <% } else { %>
+                                <i class="fa-solid fa-lock-open"></i> Public
+                                <% }} %>
+                </p>
+                <% if (currentUser && currentUser._id.equals(user._id)) { %>
+                    <div class="text-base mt-2">
+                        <button class="mr-2 collectionModalOpenBtn" id="collectionModalOpenBtn-editCollection">
+                            <i class="fa-solid fa-pen text-cyan-500 hover:text-cyan-400 duration-300 inline-block"></i>
+                        </button>
+                        <form action="/authors/<%= currentUser._id %>/collections/<%= collection._id %>?_method=DELETE"
+                            method="POST" class="inline-block">
+                            <button class="text-red-500 hover:text-red-400 duration-300"><i
+                                    class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </div>
+                    <% } %>
             </div>
         </div>
         <ul class="w-full">
             <% for (let blog of collection.blogs) { %>
-                <li class="card py-6 px-4">
+                <li class="card py-6 px-4 relative">
                     <a class="text-cyan-600 border-b-2 border-cyan-600 pb-0 text-[14px] mb-5 block max-w-max"
                         href="/authors/<%= blog.author._id %>">
                         <%= blog.author.name %>
@@ -30,7 +50,48 @@
                     duration-300 w-max">
                         <%= blog.title %>
                     </a>
+                    <% if (currentUser && currentUser._id.equals(user._id)) { %>
+                        <form
+                            action="/authors/<%= currentUser._id %>/collections/<%= collection._id %>?blogId=<%= blog._id %>"
+                            method="POST" class="absolute top-4 right-5">
+                            <button class="text-red-500 text-base hover:text-red-400 duration-300">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                        <% } %>
                 </li>
                 <% } %>
         </ul>
     </div>
+    <% if (currentUser) { %>
+        <div id="collectionModal-editCollection"
+            class="hidden bg-gray-500 bg-opacity-50 w-full h-full fixed top-0 left-0 collectionModalCloseBg items-center justify-center duration-300 z-10">
+            <div
+                class="py-4 px-6 card w-full h-full max-w-[390px] max-h-[460px] overflow-y-auto absolute collectionModal-content">
+                <p class="section-title">
+                    Edit collection
+                </p>
+                <div class="w-full">
+                    <form action="/authors/<%= currentUser._id %>/collections/<%= collection._id %>?_method=PATCH"
+                        class="form-validate" method="POST" novalidate>
+                        <div class="mb-5">
+                            <input type="text" name="name" id="name"
+                                class="block outline-none border-b-2 border-cyan-400 focus:border-cyan-600 duration-300 w-full"
+                                required autocomplete="off" value="<%= collection.name %>">
+                            <span class="error-message w-full bg-red-500 bg-opacity-60 rounded-b px-3 py-1 hidden"
+                                aria-live="polite"></span>
+                        </div>
+                        <div class="mb-5">
+                            <label for="private" class="mr-2">Private</label>
+                            <input type="checkbox" name="isPrivate" id="private" <%= collection.isPrivate? "checked" : "" %>>
+                        </div>
+                        <button class="btn block">Save</button>
+                    </form>
+                </div>
+                <button class="collectionModalCloseBtn bg-transparent p-0 m-0 absolute top-3 right-4 text-3xl"
+                    id="collectionModalCloseBtn-editCollection"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <% } %>
+            <script src="/js/collectionOpenModal.js"></script>
+            <script src="/js/formValidate.js"></script>

@@ -14,9 +14,11 @@
             <li class="nav-anchor">
                 <a href="/authors">Authors</a>
             </li>
-            <li class="nav-anchor">
-                <a href="/workshop">Workshop</a>
-            </li>
+            <% if (currentUser) { %>
+                <li class="nav-anchor">
+                    <a href="/workshop">Workshop</a>
+                </li>
+                <% } %>
         </ul>
     </div>
     <div class="flex items-center sm:hidden">
@@ -42,17 +44,19 @@
                 <li class="nav-mobile-anchor">
                     <a href="/authors" class="nav-mobile-link">Authors</a>
                 </li>
-                <li class="nav-mobile-anchor">
-                    <a href="/workshop" class="nav-mobile-link">Workshop</a>
-                </li>
-                <% if (!currentUser) { %>
+                <% if (currentUser) { %>
                     <li class="nav-mobile-anchor">
-                        <a href="/signin" class="nav-mobile-link">Login</a>
-                    </li>
-                    <li class="nav-mobile-anchor">
-                        <a href="/register" class="nav-mobile-link">Register</a>
+                        <a href="/workshop" class="nav-mobile-link">Workshop</a>
                     </li>
                     <% } %>
+                        <% if (!currentUser) { %>
+                            <li class="nav-mobile-anchor">
+                                <a href="/signin" class="nav-mobile-link">Login</a>
+                            </li>
+                            <li class="nav-mobile-anchor">
+                                <a href="/register" class="nav-mobile-link">Register</a>
+                            </li>
+                            <% } %>
             </ul>
             <% if (currentUser) { %>
                 <ul class="absolute top-[70px] right-9 bg-gray-200 w-96 items-container rounded rounded-tr-none z-30 sm:w-full sm:top-14 sm:right-0 hidden"
