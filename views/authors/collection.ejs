@@ -25,7 +25,7 @@
                                 <i class="fa-solid fa-lock-open"></i> Public
                                 <% }} %>
                 </p>
-                <% if (currentUser && currentUser._id.equals(user._id)) { %>
+                <% if (currentUser && currentUser._id.equals(user._id) && lastPath !== "liked") { %>
                     <div class="text-base mt-2">
                         <button class="mr-2 collectionModalOpenBtn" id="collectionModalOpenBtn-editCollection">
                             <i class="fa-solid fa-pen text-cyan-500 hover:text-cyan-400 duration-300 inline-block"></i>
