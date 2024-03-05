@@ -11,7 +11,9 @@
                         <%= author.name %>
                     </h1>
                     <p class="text-gray-600 my-1">
-                        <span>0 Stars</span> <sup class="text-xl mx-1">.</sup> <span>
+                        <span>
+                            <%= author.stars %> Stars
+                        </span> <sup class="text-xl mx-1">.</sup> <span>
                             <%= author.blogs.length %>
                                 <%= author.blogs.length <=1 ? "Blog" : "Blogs" %>
                         </span>
@@ -25,22 +27,27 @@
                             <i class="fa-solid fa-gear"></i>
                         </a>
                         <% } else if (currentUser) { %>
-                            <a href="/authors/<%= author._id %>/like" class="btn block w-max mt-2">
-                                <i class="fa-regular fa-star"></i>
-                            </a>
+                            <form action="/authors/<%= author._id %>/like" method="POST">
+                                <button class="btn">
+                                    <i class="<%= idIndex(currentUser.staredAuthors, author._id) === -1? " fa-regular": "fa-solid" %> fa-star"></i>
+                                </button>
+                            </form>
                             <% } %>
                 </div>
             </div>
             <div>
-                <a href="/authors/<%= author._id %>" class="text-base <%= lastPath !== " collections" && lastPath
+                <a href="/authors/<%= author._id %>" class="text-base <%= lastPath !== "collections" && lastPath
                     !=="favourites" ? `text-black border-b-black border-b-2` : `text-gray-500 hover:border-b-gray-500
                     hover:border-b-2` %> font-bold pb-1 mr-5">Home</a>
-                <a href="/authors/<%= author._id %>/collections" class="text-base <%= lastPath === " collections"?
+                <a href="/authors/<%= author._id %>/collections" class="text-base <%= lastPath === "collections"?
                     `text-black border-b-black border-b-2` : `text-gray-500 hover:border-b-gray-500 hover:border-b-2` %>
                     font-bold pb-1 mr-5">Collections</a>
-                <a href="/authors/<%= author._id %>/favourites" class="text-base <%= lastPath === " favourites"?
-                    `text-black border-b-black border-b-2` : `text-gray-500 hover:border-b-gray-500 hover:border-b-2` %>
-                    font-bold pb-1 mr-5">Favourites</a>
+                <% if (currentUser && currentUser._id.equals(author._id)) { %>
+                    <a href="/authors/<%= author._id %>/favourites" class="text-base <%= lastPath === "favourites"?
+                        `text-black border-b-black border-b-2` : `text-gray-500 hover:border-b-gray-500
+                        hover:border-b-2` %>
+                        font-bold pb-1 mr-5">Favourites</a>
+                    <% } %>
             </div>
         </div>
         <%- body %>

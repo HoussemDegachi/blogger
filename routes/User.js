@@ -13,18 +13,30 @@ router
   .put(isLogedin, isUserAuthorized, catchAsync(user.update))
   .delete(catchAsync(user.delete), auth.logout);
 
+router.route("/:id/like").post(isLogedin, catchAsync(user.like));
+
 router
   .route("/:id/settings")
   .get(isLogedin, isUserAuthorized, catchAsync(user.showSettings));
 
-router.route("/:id/collections")
-  .get(catchAsync(user.showCollections))
-  .post(isLogedin, isUserAuthorized, catchAsync(user.createCollection))
+router
+  .route("/:id/collections/liked")
+  .get(isLogedin, isUserAuthorized, catchAsync(user.showLiked))
 
-router.route("/:id/collections/:collectionId")
+router
+  .route("/:id/collections")
+  .get(catchAsync(user.showCollections))
+  .post(isLogedin, isUserAuthorized, catchAsync(user.createCollection));
+
+router
+  .route("/:id/favourites")
+  .get(isLogedin, isUserAuthorized, catchAsync(user.showFavourites));
+
+router
+  .route("/:id/collections/:collectionId")
   .get(catchAsync(user.showCollection))
   .post(isLogedin, isUserAuthorized, catchAsync(user.saveToCollection))
   .delete(isLogedin, isUserAuthorized, catchAsync(user.deleteCollection))
-  .patch(isLogedin, isUserAuthorized, catchAsync(user.editCollection))
+  .patch(isLogedin, isUserAuthorized, catchAsync(user.editCollection));
 
 module.exports = router;

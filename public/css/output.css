@@ -703,6 +703,10 @@ video {
   right: 1rem;
 }
 
+.right-5{
+  right: 1.25rem;
+}
+
 .right-9{
   right: 2.25rem;
 }
@@ -719,20 +723,12 @@ video {
   top: 0.75rem;
 }
 
-.top-\[70px\]{
-  top: 70px;
-}
-
 .top-4{
   top: 1rem;
 }
 
-.right-6{
-  right: 1.5rem;
-}
-
-.right-5{
-  right: 1.25rem;
+.top-\[70px\]{
+  top: 70px;
 }
 
 .z-10{
@@ -774,6 +770,11 @@ video {
 .my-1{
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.mx-0{
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .mb-11{
@@ -960,6 +961,10 @@ video {
 .w-max{
   width: -moz-max-content;
   width: max-content;
+}
+
+.w-\[50\%\]{
+  width: 50%;
 }
 
 .max-w-96{
@@ -1265,6 +1270,11 @@ video {
   padding-bottom: 2px;
 }
 
+.px-0{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .pb-0{
   padding-bottom: 0px;
 }
@@ -1334,6 +1344,11 @@ video {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-cyan-500{
+  --tw-text-opacity: 1;
+  color: rgb(6 182 212 / var(--tw-text-opacity));
+}
+
 .text-cyan-600{
   --tw-text-opacity: 1;
   color: rgb(8 145 178 / var(--tw-text-opacity));
@@ -1354,19 +1369,9 @@ video {
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.text-red-400{
-  --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-
 .text-red-500{
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-
-.text-cyan-500{
-  --tw-text-opacity: 1;
-  color: rgb(6 182 212 / var(--tw-text-opacity));
 }
 
 .outline-none{
@@ -1398,6 +1403,11 @@ video {
   border-bottom-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
 
+.hover\:text-cyan-400:hover{
+  --tw-text-opacity: 1;
+  color: rgb(34 211 238 / var(--tw-text-opacity));
+}
+
 .hover\:text-cyan-500:hover{
   --tw-text-opacity: 1;
   color: rgb(6 182 212 / var(--tw-text-opacity));
@@ -1406,16 +1416,6 @@ video {
 .hover\:text-red-400:hover{
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-
-.hover\:text-cyan-300:hover{
-  --tw-text-opacity: 1;
-  color: rgb(103 232 249 / var(--tw-text-opacity));
-}
-
-.hover\:text-cyan-400:hover{
-  --tw-text-opacity: 1;
-  color: rgb(34 211 238 / var(--tw-text-opacity));
 }
 
 .focus\:border-cyan-600:focus{
@@ -1529,10 +1529,6 @@ video {
 
   .sm\:flex-col{
     flex-direction: column;
-  }
-
-  .sm\:items-center{
-    align-items: center;
   }
 
   .sm\:px-3{

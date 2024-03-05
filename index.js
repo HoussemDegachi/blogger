@@ -16,6 +16,7 @@ const User = require("./models/User");
 const LocalStrategy = require("passport-local");
 const ExpressError = require("./utils/ExpressError");
 const mongoStore = require("connect-mongo");
+const idIndex = require("./utils/idIndex");
 const app = express();
 
 // connect db
@@ -72,6 +73,7 @@ app.use((req, res, next) => {
   const paths = req.path.split("/")
   const lastPath = paths[paths.length - 1]
   res.locals.lastPath = lastPath
+  res.locals.idIndex = idIndex
   next();
 });
 

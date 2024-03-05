@@ -1,5 +1,6 @@
 const { cloudinary } = require("../cloudinary");
 const User = require("../models/User");
+const idIndex = require("../utils/idIndex");
 
 module.exports.index = async (req, res) => {
   let authors = await User.find({});
@@ -47,7 +48,7 @@ module.exports.showSettings = async (req, res) => {
 
 module.exports.showCollections = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("collections.blogs");
+  const user = await User.findById(id).populate("collections.blogs").populate("likedPosts");
   const collections = user.collections.filter((collection) => {
     if (!collection.isPrivate || (req.user && req.user._id.equals(user._id))) {
       return collection;
@@ -66,6 +67,24 @@ module.exports.showCollection = async (req, res) => {
   )[0];
   user.collections = undefined;
   res.render("authors/collection", { user, collection });
+};
+
+module.exports.showLiked = async (req, res) => {
+  const { id } = req.params
+  const user = await User.findById(id).populate("likedPosts");
+  await user.populate("likedPosts.author")
+  const collection = {
+    isPrivate: true,
+    name: "Liked posts",
+    blogs: user.likedPosts
+  }
+  res.render("authors/collection", {user, collection})
+}
+
+module.exports.showFavourites = async (req, res) => {
+  const { id } = req.params;
+  let author = await User.findById(id).populate("staredAuthors");
+  res.render("authors/favourites", { author });
 };
 
 module.exports.createCollection = async (req, res) => {
@@ -137,4 +156,24 @@ module.exports.editCollection = async (req, res) => {
   }
   await user.save();
   res.redirect(`/authors/${id}/collections/${collectionId}`);
+};
+
+module.exports.like = async (req, res) => {
+  const { id } = req.params;
+  const author = await User.findById(id);
+  const user = await User.findById(req.user._id);
+  const idPos = idIndex(user.staredAuthors, id);
+  if (idPos !== -1) {
+    author.stars -= 1;
+    user.staredAuthors.splice(idPos, 1);
+    author.staredBy.splice(idIndex(user.staredBy, id), 1);
+  } else {
+    author.stars += 1;
+    user.staredAuthors.push(id);
+    author.staredBy.push(req.user._id);
+  }
+  await author.save();
+  await user.save();
+  console.log(author);
+  res.redirect(`/authors/${id}`);
 };

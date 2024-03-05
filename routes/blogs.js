@@ -11,6 +11,6 @@ router.route("/:id")
   .get(catchAsync(blog.show));
 
 router.route("/:id/like")
-  .post(isLogedin, blog.like)
+  .post(isLogedin, catchAsync(blog.like))
 
 module.exports = router;

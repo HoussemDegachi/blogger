@@ -1,0 +1,7 @@
+<%- layout("./layouts/authorPages.ejs") %>
+
+    <div class="items-container px-0 grid grid-cols-2 md:grid-cols-none md:flex md:flex-col md:items-center">
+        <% for (let staredAuthor of author.staredAuthors) { %>
+            <%- include("../partials/author", { author: staredAuthor }) %>
+                <% } %>
+    </div>

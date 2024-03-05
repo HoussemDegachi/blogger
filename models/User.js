@@ -14,9 +14,13 @@ const userSchema = new Schema({
     url: String
   },
   blogs: [{ type: Schema.Types.ObjectId, ref: "Blog" }],
-  // stars: Number,
+  stars: {
+    type: Number,
+    default: 0
+  },
   likedPosts: [{type: Schema.Types.ObjectId, ref: "Blog"}],
-  // staredAuthors: [{type: Schema.Types.ObjectId, ref: "User"}],
+  staredAuthors: [{type: Schema.Types.ObjectId, ref: "User"}],
+  staredBy: [{type: Schema.Types.ObjectId, ref: "User"}],
   collections: [
       {
           name: String,

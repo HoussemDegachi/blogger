@@ -1,0 +1,14 @@
+<div class="card max-w-96 md:max-w-[450px] w-full flex md:flex-col items-center py-4 px-6">
+    <figure class="w-24 h-24 md:w-30 md:h-30 md:mr-0 md:mb-6 mr-6">
+        <img class="w-full h-full rounded-[50%]" src="<%= author.logo.fmurl %>" alt="<%= author.name %>" loading="lazy">
+    </figure>
+    <div class="md:text-center">
+        <h2 class="font-bold text-xl">
+            <%= author.name %>
+        </h2>
+        <p class="font-light text-sm text-gray-600 mb-3">
+            <%= author.job %>
+        </p>
+        <a href="/authors/<%= author._id %>" class="btn py-2">Read more</a>
+    </div>
+</div>

@@ -3,37 +3,62 @@
         <button class="btn mt-6" id="collectionModalOpenBtn"><i class="fa-regular fa-plus"></i></button>
         <% } %>
             <ul class="py-9 grid grid-cols-2 gap-x-7 gap-y-12 md:grid-cols-none">
-                <% for (let collection of author.collections) { %>
+                <% if (currentUser && currentUser._id.equals(author._id)) { %>
                     <li>
-                        <a href="/authors/<%= author._id %>/collections/<%= collection._id %>">
+                        <a href="/authors/<%= author._id %>/collections/liked">
                             <figure class="relative bg-neutral-400 bg-opacity-70">
-                                <img src="<%= collection.blogs.length && collection.blogs[0].image ? collection.blogs[0].image : 
-                        " https://t3.ftcdn.net/jpg/02/68/55/60/240_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg"
-                                    %>"
+                                <img src="<%= author.likedPosts.length && author.likedPosts[0].image ? author.likedPosts[0].image : 
+                    " https://t3.ftcdn.net/jpg/02/68/55/60/240_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg" %>"
                                 class="h-full" alt="">
                                 <div class="absolute right-4 bottom-3">
                                     <p class="inline-block ml-1 bg-cyan-400 bg-opacity-30 rounded p-[3px]">
                                         <i class="fa-solid fa-bars-staggered"></i>
-                                        <%= collection.blogs.length %> blog<%= collection.blogs.length !==1 ? "s" : ""
+                                        <%= author.likedPosts.length %> blog<%= author.likedPosts.length !==1 ? "s" : ""
                                                 %>
                                     </p>
-                                    <% if (currentUser && currentUser._id.equals(author._id)) { %>
-                                        <p class="inline-block ml-1 bg-cyan-400 bg-opacity-30 rounded p-[3px] px-[5px]">
-                                            <% if (collection.isPrivate) { %>
-                                                <i class="fa-solid fa-lock"></i>
-                                                <% } else { %>
-                                                    <i class="fa-solid fa-lock-open"></i>
-                                                    <% } }%>
-
-                                        </p>
+                                    <p class="inline-block ml-1 bg-cyan-400 bg-opacity-30 rounded p-[3px] px-[5px]">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </p>
                                 </div>
                             </figure>
                             <p class="bg-white items-container">
-                                <%= collection.name %>
+                                Liked Blogs
                             </p>
                         </a>
                     </li>
                     <% } %>
+                        <% for (let collection of author.collections) { %>
+                            <li>
+                                <a href="/authors/<%= author._id %>/collections/<%= collection._id %>">
+                                    <figure class="relative bg-neutral-400 bg-opacity-70">
+                                        <img src="<%= collection.blogs.length && collection.blogs[0].image ? collection.blogs[0].image : 
+                        " https://t3.ftcdn.net/jpg/02/68/55/60/240_F_268556012_c1WBaKFN5rjRxR2eyV33znK4qnYeKZjm.jpg"
+                                            %>"
+                                        class="h-full" alt="">
+                                        <div class="absolute right-4 bottom-3">
+                                            <p class="inline-block ml-1 bg-cyan-400 bg-opacity-30 rounded p-[3px]">
+                                                <i class="fa-solid fa-bars-staggered"></i>
+                                                <%= collection.blogs.length %> blog<%= collection.blogs.length !==1
+                                                        ? "s" : "" %>
+                                            </p>
+                                            <% if (currentUser && currentUser._id.equals(author._id)) { %>
+                                                <p
+                                                    class="inline-block ml-1 bg-cyan-400 bg-opacity-30 rounded p-[3px] px-[5px]">
+                                                    <% if (collection.isPrivate) { %>
+                                                        <i class="fa-solid fa-lock"></i>
+                                                        <% } else { %>
+                                                            <i class="fa-solid fa-lock-open"></i>
+                                                            <% } }%>
+
+                                                </p>
+                                        </div>
+                                    </figure>
+                                    <p class="bg-white items-container">
+                                        <%= collection.name %>
+                                    </p>
+                                </a>
+                            </li>
+                            <% } %>
             </ul>
             <% if (currentUser && currentUser._id.equals(author._id)) { %>
                 <div id="collectionModal"
