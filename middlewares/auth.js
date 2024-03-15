@@ -1,4 +1,5 @@
 const { user: userSchema } = require("../schemas/auth");
+const idIndex = require("../utils/idIndex");
 
 module.exports.validateUser = (req, res, next) => {
   const { name, email, job, password, description } = req.body;
@@ -39,4 +40,15 @@ module.exports.isUserAuthorized = (req, res, next) => {
   }
   req.flash("error", "Access denied, You are not authorized");
   res.redirect(`/authors/${id}`);
+};
+
+module.exports.isBlogAuth = (req, res, next) => {
+  const { blogId } = req.params;
+  const user = req.user;
+  const i = idIndex(user.blogs, blogId);
+  if (i !== -1) {
+    return next();
+  }
+  req.flash("error", "Access denied, You are not authorized");
+  res.redirect(`/authors/${user._id}`);
 };

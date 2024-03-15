@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogs");
 const userRoutes = require("./routes/User");
 const authRoutes = require("./routes/Auth");
+const workshopRoutes = require("./routes/Workshop")
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
@@ -79,6 +80,7 @@ app.use((req, res, next) => {
 
 // routers
 app.use("/", authRoutes);
+app.use("/workshop", workshopRoutes)
 app.use("/authors", userRoutes);
 app.use("/", blogRoutes);
 

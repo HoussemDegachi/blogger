@@ -1,16 +1,33 @@
 <%- layout("./layouts/authorPages") %>
-    <ul class="py-9 grid grid-cols-2 gap-x-7 gap-y-12 md:grid-cols-none">
-        <% for (let blog of author.blogs) { %>
-            <li class="card py-6 px-4 m-0">
-                <a href="/<%= blog._id  %>">
-                    <p>
-                        <%= blog.fmCreationDate %>
-                    </p>
-                    <p class="text-xl text-bold hover:border-b-2 hover:border-cyan-500 hover:text-cyan-500 
+    <% if (currentUser && currentUser._id.equals(author._id)) { %>
+        <form action="/workshop" method="POST">
+            <button class="btn mt-6" title="Create new blog"><i class="fa-regular fa-plus"></i></button>
+        </form>
+        <% } %>
+            <ul class="py-9 grid grid-cols-2 gap-x-7 gap-y-12 md:grid-cols-none">
+                <% for (let blog of author.blogs) { %>
+                    <li class="card py-6 px-4 m-0 relative">
+                        <a href="/<%= blog._id  %>">
+                            <p>
+                                <%= blog.fmCreationDate %>
+                            </p>
+                            <p class="text-xl text-bold hover:border-b-2 hover:border-cyan-500 hover:text-cyan-500 
                     duration-300 w-max">
-                        <%= blog.title %>
-                    </p>
-                </a>
-            </li>
-            <% } %>
-    </ul>
+                                <%= blog.title %>
+                            </p>
+                        </a>
+                        <% if (currentUser && author._id.equals(currentUser._id)) { %>
+                            <div class="absolute top-3 right-3">
+                                <a href="/workshop/<%= blog._id %>" class="mr-2 text-cyan-600 hover:text-cyan-500 duration-300">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                <form action="/workshop/<%= blog._id %>?_method=DELETE" method="POST">
+                                    <button class="text-red-600 hover:text-red-500 duration-300">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <% } %>
+                    </li>
+                    <% } %>
+            </ul>

@@ -3,15 +3,22 @@ const Schema = mongoose.Schema;
 
 const blogSchema = new Schema({
   title: String,
-  likes: Number,
-  likers: [{type: Schema.Types.ObjectId, ref: "User"}],
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  likers: [{ type: Schema.Types.ObjectId, ref: "User" }],
   creationDate: Date,
-  author: {type: Schema.Types.ObjectId, ref: "User"},
-  image: String,
-  // content: [{}],
-  content: String,
-  // isPrivate: Boolean,
-  // isDraft: Boolean,
+  author: { type: Schema.Types.ObjectId, ref: "User" },
+  image: {
+    filename: String,
+    url: String,
+  },
+  content: {
+    type: {},
+    default: {}
+  },
+  isDraft: Boolean,
 });
 {
 }

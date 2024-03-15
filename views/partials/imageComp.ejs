@@ -17,7 +17,8 @@
                     <% } %>
                         <form action="/<%= id %>/like" method="POST">
                             <button class="btn p-[3px] px-[5px] bg-cyan-400 bg-opacity-30">
-                                <i class="<%= idIndex(currentUser.likedPosts, id) === -1 ? "fa-regular" : "fa-solid" %> fa-heart"></i>
+                                <i class="<%= currentUser && idIndex(currentUser.likedPosts, id) !== -1 ? " fa-solid" : "fa-regular" %>
+                                    fa-heart"></i>
                                 <span class="text-base">
                                     <%= likes %>
                                 </span>

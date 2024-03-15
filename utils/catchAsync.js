@@ -3,7 +3,6 @@ const ExpressError = require("./ExpressError");
 module.exports = (fn) => {
   return (req, res, next) => {
     fn(req, res, next).catch((err) => {
-      console.log(err.name);
       if (err.name === "CastError") {
         return next(
           new ExpressError(

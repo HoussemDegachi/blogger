@@ -1,0 +1,42 @@
+<%- layout("./layouts/boilerplate") %>
+    <div class="container">
+        <div class="flex items-center flex-col w-full">
+            <div class="max-w-[800px] w-full">
+                <div class="mb-6 w-full bg-gray-200 rounded px-2">
+                    <button id="dropdown-btn" class="text-xl"><i class="fa-solid fa-angle-right"></i></button>
+                    <div id="dropdown" class="hidden py-6">
+                        <div>
+                            <div class="w-full mb-4">
+                                <label for="title">Title:</label>
+                                <input
+                                    class="block outline-none border-b-2 border-cyan-400 focus:border-cyan-600 bg-gray-200 duration-300 w-30"
+                                    type="text" name="title" id="title" value="<%= blog.title %>">
+                            </div>
+                        </div>
+                        <div class="w-full mb-4">
+                            <label for="image">Image:</label>
+                            <input class="block outline-none duration-300 w-30" type="file" name="image" id="image">
+                            <% if (blog.image.url) { %>
+                                <figure>
+                                    <img src="<%= blog.image.url %>" alt="Current image">
+                                </figure>
+                                <figcaption>Current image</figcaption>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div id="editor" class="bg-white min-h-screen w-full rounded py-4 px-2">
+                </div>
+            </div>
+        </div>
+        <form action="/workshop/<%= blog._id %>?_method=PATCH" method="post"
+            class="fixed bottom-4 right-4 bg-cyan-600 text-white rounded-full hover:bg-cyan-500 duration-300 hidden z-50"
+            id="save" enctype="multipart/form-data">
+            <button class="text-[28px] py-2 px-4"><i class="fa-solid fa-floppy-disk"></i></button>
+        </form>
+    </div>
+    <script>
+        const readOnly = false
+    </script>
+    <%- include("../partials/editorjs") %>
+        <script src="/js/dropDown.js"></script>

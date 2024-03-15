@@ -15,11 +15,13 @@ module.exports.register = async (req, res) => {
   const userData = { name, email, job, description }
   try {
     const u = new User(userData);
-    u.logo = {
-      url: req.file.path,
-      filename: req.file.filename
+    if (req.file) {
+      u.logo = {
+        url: req.file.path,
+        filename: req.file.filename
+      }
     }
-    
+      
     const registerdUser = await User.register(u, password);
     req.login(registerdUser, (err) => {
       if (err) return next(err);

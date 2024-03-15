@@ -48,7 +48,9 @@ module.exports.showSettings = async (req, res) => {
 
 module.exports.showCollections = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("collections.blogs").populate("likedPosts");
+  const user = await User.findById(id)
+    .populate("collections.blogs")
+    .populate("likedPosts");
   const collections = user.collections.filter((collection) => {
     if (!collection.isPrivate || (req.user && req.user._id.equals(user._id))) {
       return collection;
@@ -70,16 +72,16 @@ module.exports.showCollection = async (req, res) => {
 };
 
 module.exports.showLiked = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
   const user = await User.findById(id).populate("likedPosts");
-  await user.populate("likedPosts.author")
+  await user.populate("likedPosts.author");
   const collection = {
     isPrivate: true,
     name: "Liked posts",
-    blogs: user.likedPosts
-  }
-  res.render("authors/collection", {user, collection})
-}
+    blogs: user.likedPosts,
+  };
+  res.render("authors/collection", { user, collection });
+};
 
 module.exports.showFavourites = async (req, res) => {
   const { id } = req.params;
@@ -174,6 +176,6 @@ module.exports.like = async (req, res) => {
   }
   await author.save();
   await user.save();
-  console.log(author);
+  author;
   res.redirect(`/authors/${id}`);
 };

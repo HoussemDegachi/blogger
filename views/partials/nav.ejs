@@ -16,7 +16,9 @@
             </li>
             <% if (currentUser) { %>
                 <li class="nav-anchor">
-                    <a href="/workshop">Workshop</a>
+                    <form action="/workshop" method="POST">
+                        <button>Workshop</button>
+                    </form>
                 </li>
                 <% } %>
         </ul>
@@ -46,7 +48,9 @@
                 </li>
                 <% if (currentUser) { %>
                     <li class="nav-mobile-anchor">
-                        <a href="/workshop" class="nav-mobile-link">Workshop</a>
+                        <form action="/workshop" method="POST">
+                            <button class="nav-mobile-link">Workshop</button>
+                        </form>
                     </li>
                     <% } %>
                         <% if (!currentUser) { %>

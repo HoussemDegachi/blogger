@@ -7,11 +7,9 @@
                 </h1>
                 <%- include("./partials/blogDescription", {blog}) %>
             </div>
-            <%- include("./partials/imageComp", {url: blog.image, id: blog._id, likes: blog.likes, linkImage: false}) %>
-                <div class="content-container">
-                    <p>
-                        <%= blog.content %>
-                    </p>
+            <%- include("./partials/imageComp", {url: blog.image.url, id: blog._id, likes: blog.likes, linkImage:
+                false}) %>
+                <div class="bg-white min-h-screen w-full rounded py-4 px-2" id="editor">
                 </div>
         </div>
         <div class="max-w-[30%] md:max-w-none w-full ml-10 md:ml-0">
@@ -32,4 +30,8 @@
             </ul>
         </div>
     </div>
-    <script src="/js/collectionOpenModal.js"></script>
+    <script>
+        const readOnly = true
+    </script>
+    <%- include("./partials/editorjs") %>
+        <script src="/js/collectionOpenModal.js"></script>

@@ -1,0 +1,16 @@
+<script>
+    let blogData = { blog: <%- JSON.stringify(blog) %>}
+
+    blogData = blogData.blog.content
+    // blogData = blogData.replaceAll("&#34;", "\"")
+    // blogData = JSON.parse(blogData)
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
+<script src="/js/editor.js"></script>

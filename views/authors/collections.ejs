@@ -1,6 +1,7 @@
 <%- layout("./layouts/authorPages") %>
     <% if (currentUser && currentUser._id.equals(author._id)) { %>
-        <button class="btn mt-6" id="collectionModalOpenBtn"><i class="fa-regular fa-plus"></i></button>
+        <button class="btn mt-6" id="collectionModalOpenBtn" title="Create new collection"><i
+                class="fa-regular fa-plus"></i></button>
         <% } %>
             <ul class="py-9 grid grid-cols-2 gap-x-7 gap-y-12 md:grid-cols-none">
                 <% if (currentUser && currentUser._id.equals(author._id)) { %>
